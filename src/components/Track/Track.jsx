@@ -4,7 +4,7 @@ import React from 'react'
 const Track = (props) => {
   function renderAction(){
       if(props.isRemoval){
-        return <button className="Track-action">-</button>
+        return <button className="Track-action" onClick={removeTrack}>-</button>
       } else {
         return <button className="Track-action" onClick={addTrack}>+</button>
       }
@@ -12,6 +12,10 @@ const Track = (props) => {
 
   function addTrack(){
     props.onAdd(props.track)
+  }
+
+  function removeTrack(){
+    props.onRemove(props.track)
   }
 
   

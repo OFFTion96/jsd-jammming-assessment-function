@@ -7,7 +7,7 @@ const TrackList = (props) => {
   return (
     <div className="TrackList">
     {searchResult.map(trackMusic=>{
-      return <Track track={trackMusic} key={trackMusic.music} onAdd={props.onAdd}/>
+      return <Track track={trackMusic} key={trackMusic.id} onAdd={props.onAdd} onRemove={props.onRemove} isRemoval={props.isRemoval}/>
     })}
     </div>
   )

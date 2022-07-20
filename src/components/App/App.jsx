@@ -3,27 +3,60 @@ import "./App.css";
 import SearchBar from '../SearchBar/SearchBar'
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
-import { useState,useEffct } from "react";
+import { useState,useEffect } from "react";
+import Spotify from '../../utils/Spotify'
 //import 3 components
 
 const App = () => {
 
   const [searchResult,setSearchResult] = useState([{name:'name1',artist:'artist1',album:'album1'},{name:'name2',artist:'artist2',album:'album2'},{name:'name3',artist:'artist3',album:'album3'}])
   const [playListName,setPlayListName] = useState('My Playlisttttt')
-  const [playListTracks,setPlayListTracks] = useState([{name:'playListName1',artist:'playListArtist1',album:'playListAlbum1',id:1},
-  {name:'playListName2',artist:'playListArtist2',album:'playListAlbum2',id:2}])
+  const [playListTracks,setPlayListTracks] = useState([])
+  
+ 
+  useEffect(()=>{
+    Spotify.getAccessToken()
+  },[])
+
 
  
   function addTrack(track){
-    setPlayListTracks(oldPlatListTracks => {
-      if(oldPlatListTracks.includes(track)){
-        return oldPlatListTracks;
+    setPlayListTracks(oldPlayListTracks => {
+      if(oldPlayListTracks.includes(track)){
+        return oldPlayListTracks;
       } else {
-        return [...oldPlatListTracks,track]
+        return [...oldPlayListTracks,track]
       }
     })
   }
 
+  function removeTrack(track){
+    setPlayListTracks(oldPlayListTracks=>oldPlayListTracks.filter((item => track !== item)))
+  }
+
+  function updatePlaylistName(name){
+    setPlayListName(name)
+  }
+
+  function savePlaylist(){
+    
+    const trackUris=playListTracks.map(track=>track.id)
+    
+    Spotify.savePlaylist(playListName,trackUris).then(()=>{
+      setPlayListTracks([])
+      setPlayListName('My Playlisttttt')
+    })
+    console.log(trackUris)
+    console.log(playListName)
+  }
+
+ 
+  
+  function search(term){
+    Spotify.search(term).then((r)=>{
+      setSearchResult(r)
+    })
+  }
   
 
 
@@ -34,10 +67,10 @@ const App = () => {
         Ja<span className="highlight">mmm</span>ing
       </h1>
       <div className="App">
-        <SearchBar />
+        <SearchBar onSearch={search} />
         <div className="App-playlist">
           <SearchResults tracks={searchResult} onAdd={addTrack}/> 
-          <Playlist playListName={playListName} playListTracks={playListTracks}/>
+          <Playlist playListName={playListName} playListTracks={playListTracks} onRemove={removeTrack} onNameChange={updatePlaylistName} onSave={savePlaylist}/>
         </div>
       </div>
     </div>
