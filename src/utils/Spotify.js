@@ -1,7 +1,7 @@
 // TODO: Get Client ID from https://developer.spotify.com/dashboard/ and put it here
 const clientId = "994b6aadf15946a19fa185bd952d8df6";
 
-const redirectUri = "http://my-jamming-off.surge.sh";
+const redirectUri = "https://celebrated-wisp-b93229.netlify.app";
 const spotifyUrl = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;
 let accessToken = undefined;
 let expiresIn = undefined;
