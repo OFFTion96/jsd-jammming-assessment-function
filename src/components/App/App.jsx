@@ -9,8 +9,8 @@ import Spotify from '../../utils/Spotify'
 
 const App = () => {
 
-  const [searchResult,setSearchResult] = useState([{name:'name1',artist:'artist1',album:'album1'},{name:'name2',artist:'artist2',album:'album2'},{name:'name3',artist:'artist3',album:'album3'}])
-  const [playListName,setPlayListName] = useState('My Playlisttttt')
+  const [searchResult,setSearchResult] = useState([])
+  const [playListName,setPlayListName] = useState('Change Name Playlist')
   const [playListTracks,setPlayListTracks] = useState([])
   
  
@@ -44,7 +44,7 @@ const App = () => {
     
     Spotify.savePlaylist(playListName,trackUris).then(()=>{
       setPlayListTracks([])
-      setPlayListName('My Playlisttttt')
+      setPlayListName('Change Name Playlist')
     })
     console.log(trackUris)
     console.log(playListName)

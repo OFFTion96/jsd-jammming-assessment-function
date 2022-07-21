@@ -1,7 +1,7 @@
 // TODO: Get Client ID from https://developer.spotify.com/dashboard/ and put it here
 const clientId = "994b6aadf15946a19fa185bd952d8df6";
 
-const redirectUri = "http://localhost:5173/";
+const redirectUri = "https://OFFTion96.gitlab.io/jsd-jammming-assessment-function/";
 const spotifyUrl = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;
 let accessToken = undefined;
 let expiresIn = undefined;
